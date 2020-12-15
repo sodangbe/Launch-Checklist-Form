@@ -17,6 +17,16 @@ window.addEventListener("load", function () {
       return false;
     }
   };
+
+  async function getPlanets() {
+   let url = "https://handlers.education.launchcode.org/static/planets.json";
+   try {
+     let res = await fetch(url);
+     return await res.json();
+   } catch (error) {
+     console.log(error);
+   }
+}
   async function renderMissions() {
    let planetsList = await getPlanets();
    let html = "";
@@ -58,14 +68,19 @@ window.addEventListener("load", function () {
     if (isNaN(cargoMassNumber)) {
      
       alert("The cargo mass must be a number");
-
-    }else  if (isNaN(fuelLevelNumber)) {
+     
+    } 
+    
+    if (isNaN(fuelLevelNumber)) {
       //console.log(fuelLevel.value)
       alert("The fuel level must be a number");
-    } else if (pilotName.value === "" ||copilotName.value === "" ||fuelLevel.value === "" ||cargoMass.value === ""){
+      return false;
+    } 
+    
+    if (pilotName.value === "" ||copilotName.value === "" ||fuelLevel.value === "" ||cargoMass.value === ""){
       
       alert("All fields are required!");
-      
+      return false;
     }
    
     if (checkFuel(fuelLevelNumber)) {
@@ -73,30 +88,18 @@ window.addEventListener("load", function () {
       fL.innerHTML = "There is not enough fuel for the journey";
       lS.innerHTML = "Shuttle not ready for launch";
       lS.style.color = "red";
-    } else {
-      lS.innerHTML = "Shuttle is ready for launch";
-    }
-    
-    if (checkCargoMass(cargoMassNumber)) {
+      return false;
+    } else if (checkCargoMass(cargoMassNumber)) {
       p.style.visibility = "visible";
       fL.innerHTML = "There is too much mass for the shuttle to take off.";
       lS.innerHTML = "Shuttle not ready for launch";
       lS.style.color = "red";
+      return false;
     } else {
       lS.innerHTML = "Shuttle is ready for launch";
+      return false;
     }
   });
-
-  async function getPlanets() {
-   let url = "https://handlers.education.launchcode.org/static/planets.json";
-   try {
-     let res = await fetch(url);
-     return await res.json();
-   } catch (error) {
-     console.log(error);
-   }
-}
-
 });
 
 
