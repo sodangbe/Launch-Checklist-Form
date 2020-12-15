@@ -7,7 +7,7 @@ div {
 }
 
 #faultyItems {
-    visibility: hidden;   
+    visibility:hidden;   
 }
 
 #launchForm {
@@ -40,6 +40,7 @@ div {
     width: 50%;
     border: 3px solid black;
     padding: 10px;
+    
 }
 
 button {
