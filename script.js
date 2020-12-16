@@ -17,7 +17,32 @@ window.addEventListener("load", function () {
       return false;
     }
   };
-
+  
+//   function validate() {
+      
+//     if( pilotName.value === "" ) {
+//        alert( "All fields are required!");
+//        document.Name.fofocus() ;
+//        return false;
+//     }
+//     if( copilotName.value === "" ) {
+//       alert( "All fields are required!");
+//        document.copilotName.focus() ;
+//        return false;
+//     }
+//     if( fuelLevel.value === "" || isNaN( fuelLevel.value) ) {
+       
+//        alert( "Make sure to enter a valid information for each field" );
+//        document.fuelLevel.focus() ;
+//        return false;
+//     }
+//     if(cargoMass.value === "" || isNaN(cargoMass.value) ) {
+//       alert( "Make sure to enter a valid information for each field" );
+//       document.cargoMass.focus() ;
+//       return false;
+//     }
+//     return( true );
+//  }
   async function getPlanets() {
    let url = "https://handlers.education.launchcode.org/static/planets.json";
    try {
@@ -65,23 +90,33 @@ window.addEventListener("load", function () {
     let fL = document.getElementById("fuelStatus");
     let lS = document.getElementById("launchStatus");
 
-    if (isNaN(cargoMassNumber)) {
-     
-      alert("The cargo mass must be a number");
-     
-    } 
-    
-    if (isNaN(fuelLevelNumber)) {
-      //console.log(fuelLevel.value)
-      alert("The fuel level must be a number");
+       
+    if( pilotName.value === "" ) {
+      alert( "All fields are required!");
+      document.Name.focus() ;
+      p.style.visibility = "hidden";
       return false;
-    } 
-    
-    if (pilotName.value === "" ||copilotName.value === "" ||fuelLevel.value === "" ||cargoMass.value === ""){
+   }
+   if( copilotName.value === "" ) {
+     alert( "All fields are required!");
+      document.copilotName.focus() ;
+      p.style.visibility = "hidden";
+      return false;
+   }
+   if( fuelLevel.value === "" || isNaN( fuelLevel.value) ) {
       
-      alert("All fields are required!");
+      alert( "Make sure to enter a valid information for each field" );
+      document.fuelLevel.focus() ;
+      p.style.visibility = "hidden";
       return false;
-    }
+   }
+   if(cargoMass.value === "" || isNaN(cargoMass.value) ) {
+     alert( "Make sure to enter a valid information for each field" );
+     document.cargoMass.focus() ;
+     p.style.visibility = "hidden";
+     return false;
+   }
+   
    
     if (checkFuel(fuelLevelNumber)) {
       p.style.visibility = "visible";
@@ -89,6 +124,7 @@ window.addEventListener("load", function () {
       lS.innerHTML = "Shuttle not ready for launch";
       lS.style.color = "red";
       return false;
+
     } else if (checkCargoMass(cargoMassNumber)) {
       p.style.visibility = "visible";
       fL.innerHTML = "There is too much mass for the shuttle to take off.";
@@ -97,6 +133,9 @@ window.addEventListener("load", function () {
       return false;
     } else {
       lS.innerHTML = "Shuttle is ready for launch";
+      fL.innerHTML = "The mass is enough for the shuttle to take off.";
+      fL.innerHTML = "The fuel is enough for the journey";
+      lS.style.color = "green";
       return false;
     }
   });
